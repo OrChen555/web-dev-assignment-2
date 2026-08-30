@@ -2,6 +2,8 @@ const itemsBox = document.getElementById('items');
 const instruction = document.getElementById('instruction');
 const levelCount = document.getElementById('level-count');
 const controls = document.getElementById('controls');
+const message = document.getElementById('message');
+const checkButton = document.getElementById('check-button');
 
 let currentLevel = 0;
 let chosenStyles = {}; // המאפיינים שהשחקן בחר בשלב הנוכחי
@@ -63,6 +65,38 @@ function showControls(level) {
     });
 }
 
+// בודק אם כל המאפיינים של השלב קיבלו את הערך הנכון
+function isCorrect() {
+    const styles = getStyles();
+    const answer = levels[currentLevel].answer;
+
+    for (const property in answer) {
+        if (styles[property] !== answer[property]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function showMessage(text, type) {
+    message.textContent = text;
+    message.className = 'message show ' + type;
+}
+
+function hideMessage() {
+    message.textContent = '';
+    message.className = 'message';
+}
+
+function checkAnswer() {
+    if (isCorrect()) {
+        showMessage('כל הכבוד! הצלחתם לסדר את הלוח כמו שנדרש.', 'correct');
+    } else {
+        showMessage('הפתרון עדיין לא נכון. קראו שוב את ההוראה, שנו את הערכים ונסו שוב.', 'wrong');
+    }
+}
+
 function showLevel(index) {
     currentLevel = index;
     chosenStyles = {};
@@ -75,6 +109,9 @@ function showLevel(index) {
     showItems(level);
     showControls(level);
     applyStyles();
+    hideMessage();
 }
+
+checkButton.addEventListener('click', checkAnswer);
 
 showLevel(0);
