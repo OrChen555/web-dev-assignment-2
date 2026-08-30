@@ -29,7 +29,7 @@ const levels = [
         }
     },
     {
-        instruction: 'תחנת העגינה נמצאת בקצה השמאלי של הלוח. הצמידו אליה את כל החלליות.',
+        instruction: 'תחנת העגינה נמצאת בקצה הימני של הלוח. הצמידו אליה את כל החלליות.',
         items: ['🚀', '🛸', '🛰️'],
         start: { 'display': 'flex' },
         controls: ['justify-content'],
