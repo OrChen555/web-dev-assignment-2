@@ -4,6 +4,8 @@ const levelCount = document.getElementById('level-count');
 const controls = document.getElementById('controls');
 const message = document.getElementById('message');
 const checkButton = document.getElementById('check-button');
+const resetButton = document.getElementById('reset-button');
+const nextButton = document.getElementById('next-button');
 
 let currentLevel = 0;
 let chosenStyles = {}; // המאפיינים שהשחקן בחר בשלב הנוכחי
@@ -90,11 +92,39 @@ function hideMessage() {
 }
 
 function checkAnswer() {
-    if (isCorrect()) {
-        showMessage('כל הכבוד! הצלחתם לסדר את הלוח כמו שנדרש.', 'correct');
-    } else {
+    if (!isCorrect()) {
         showMessage('הפתרון עדיין לא נכון. קראו שוב את ההוראה, שנו את הערכים ונסו שוב.', 'wrong');
+        return;
     }
+
+    if (currentLevel === levels.length - 1) {
+        showMessage('כל הכבוד! סיימתם את כל ' + levels.length + ' השלבים של המשחק.', 'correct');
+        nextButton.textContent = 'התחלה מחדש';
+    } else {
+        showMessage('כל הכבוד! הצלחתם לסדר את הלוח כמו שנדרש.', 'correct');
+    }
+
+    nextButton.hidden = false;
+}
+
+// אחרי השלב האחרון הכפתור מחזיר לתחילת המשחק
+function goToNextLevel() {
+    if (currentLevel === levels.length - 1) {
+        showLevel(0);
+    } else {
+        showLevel(currentLevel + 1);
+    }
+}
+
+// החזרת השלב לערכי ברירת המחדל
+function resetLevel() {
+    chosenStyles = {};
+
+    showControls(levels[currentLevel]);
+    applyStyles();
+    hideMessage();
+
+    nextButton.hidden = true;
 }
 
 function showLevel(index) {
@@ -110,8 +140,13 @@ function showLevel(index) {
     showControls(level);
     applyStyles();
     hideMessage();
+
+    nextButton.hidden = true;
+    nextButton.textContent = 'לשלב הבא';
 }
 
 checkButton.addEventListener('click', checkAnswer);
+resetButton.addEventListener('click', resetLevel);
+nextButton.addEventListener('click', goToNextLevel);
 
 showLevel(0);

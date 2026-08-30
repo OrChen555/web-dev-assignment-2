@@ -137,6 +137,16 @@ button:hover {
     background: #8ee0ff;
 }
 
+button.secondary {
+    color: #ecf0ff;
+    background: transparent;
+    border: 1px solid #4d5fa5;
+}
+
+button.secondary:hover {
+    background: #1d2a5c;
+}
+
 /* הודעת המשוב אחרי בדיקת הפתרון */
 .message {
     display: none;
