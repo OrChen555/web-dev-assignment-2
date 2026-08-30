@@ -1,6 +1,7 @@
 const itemsBox = document.getElementById('items');
 const instruction = document.getElementById('instruction');
 const levelCount = document.getElementById('level-count');
+const controls = document.getElementById('controls');
 
 let currentLevel = 0;
 let chosenStyles = {}; // המאפיינים שהשחקן בחר בשלב הנוכחי
@@ -30,6 +31,38 @@ function showItems(level) {
     }
 }
 
+// בונה תפריט בחירה לכל מאפיין שאפשר לשנות בשלב
+function showControls(level) {
+    controls.innerHTML = '';
+
+    level.controls.forEach(function (property) {
+        const row = document.createElement('label');
+        row.className = 'control';
+
+        const name = document.createElement('span');
+        name.textContent = property;
+
+        const select = document.createElement('select');
+
+        options[property].forEach(function (value) {
+            const option = document.createElement('option');
+            option.textContent = value;
+            select.appendChild(option);
+        });
+
+        select.value = getStyles()[property];
+
+        select.addEventListener('change', function () {
+            chosenStyles[property] = select.value;
+            applyStyles();
+        });
+
+        row.appendChild(name);
+        row.appendChild(select);
+        controls.appendChild(row);
+    });
+}
+
 function showLevel(index) {
     currentLevel = index;
     chosenStyles = {};
@@ -40,6 +73,7 @@ function showLevel(index) {
     instruction.textContent = level.instruction;
 
     showItems(level);
+    showControls(level);
     applyStyles();
 }
 

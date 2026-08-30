@@ -85,6 +85,36 @@ main {
     line-height: 1.6;
 }
 
+.controls {
+    margin-top: 18px;
+}
+
+.control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.control span {
+    direction: ltr;
+    width: 130px;
+    font-family: "Courier New", monospace;
+    color: #ffd166;
+}
+
+.control select {
+    flex-grow: 1;
+    direction: ltr;
+    padding: 6px;
+    font-family: "Courier New", monospace;
+    font-size: 0.95rem;
+    color: #ecf0ff;
+    background: #101a3d;
+    border: 1px solid #4d5fa5;
+    border-radius: 6px;
+}
+
 footer {
     padding: 16px;
     text-align: center;
