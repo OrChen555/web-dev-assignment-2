@@ -40,13 +40,15 @@ function showControls(level) {
     controls.innerHTML = '';
 
     level.controls.forEach(function (property) {
-        const row = document.createElement('label');
+        const row = document.createElement('div');
         row.className = 'control';
 
-        const name = document.createElement('span');
-        name.textContent = property;
-
         const select = document.createElement('select');
+        select.id = 'control-' + property;
+
+        const name = document.createElement('label');
+        name.textContent = property;
+        name.htmlFor = select.id;
 
         options[property].forEach(function (value) {
             const option = document.createElement('option');
